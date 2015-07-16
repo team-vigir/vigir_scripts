@@ -1,0 +1,7 @@
+#!/bin/bash
+
+export VIGIR_LEFT_GUARD_TYPE="l_robotiq_guard"
+export FLOR_LEFT_HAND_TYPE="l_robotiq"
+
+echo "  Left guard type = "$VIGIR_LEFT_GUARD_TYPE
+echo "  Left hand type  = "$FLOR_LEFT_HAND_TYPE

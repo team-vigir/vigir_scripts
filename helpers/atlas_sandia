@@ -1,0 +1,12 @@
+#!/bin/bash
+
+echo "Set up with Atlas with two Sandia hands ..."
+
+export FLOR_TASK_TYPE="door"
+export FLOR_ROBOT_TYPE="atlas_v3"
+echo "  Robot type = "$FLOR_ROBOT_TYPE
+
+. atlas_multisense
+. l_sandia
+. r_sandia
+

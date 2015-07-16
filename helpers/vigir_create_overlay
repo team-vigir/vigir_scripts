@@ -1,0 +1,41 @@
+#!/bin/bash
+
+if [ "$#" -ne 4 ] ; then
+echo "---------------------------------------------------"
+  echo "Have to provide 4 arguments"
+  echo "[overlay folder] [package_name_in_overlay src] [vcs type] [repo URL]"
+  echo ""
+  echo "Example:"
+  echo "vigir_create_overlay vigir_overlay vigir_lidar_proc --git https://github.com/team-vigir/vigir_lidar_proc.git"
+echo "---------------------------------------------------"
+  exit 1
+fi
+
+echo "Creating overlay"
+
+mkdir -p  $1/src
+cd $1/src
+wstool init
+
+wstool set $2 $3 $4
+wstool update
+
+cd ..
+catkin_make
+
+echo "---------------------------------------------------"
+echo "Deleting rospack cache in ~/.ros"
+echo "This seems required for roscd to work correctly"
+rm ~/.ros/rospack_cache_* -rf
+echo "---------------------------------------------------"
+echo "Deleting symlink to toplevel CMakeLists.txt"
+echo "and copying instead, fixes issue with"
+echo "opening workspace in QtCreator"
+rm src/CMakeLists.txt
+cp /opt/ros/$ROS_DISTRO/share/catkin/cmake/toplevel.cmake src/CMakeLists.txt
+echo "---------------------------------------------------"
+echo "Overlay created!"
+echo ""
+echo "To use, type:"
+echo "source $1/devel/setup.bash"
+echo "---------------------------------------------------"

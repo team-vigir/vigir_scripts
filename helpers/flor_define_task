@@ -1,0 +1,12 @@
+#!/bin/bash
+
+computers=(gandalf_ocs gimli_ocs frodo_ocs aragorn legolas sam )
+
+command_first='head -n -1 /home/vigir/.bashrc > /home/vigir/.bashrc.tmp; mv /home/vigir/.bashrc.tmp /home/vigir/.bashrc; echo ". '
+command_second='" >> /home/vigir/.bashrc'
+command=$command_first$1$command_second
+
+for computer in ${computers[*]}; do
+    echo "Setting task on $computer"
+    ssh $computer $command 
+done

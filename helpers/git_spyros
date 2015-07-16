@@ -1,0 +1,10 @@
+git config --global user.name "Spyros Maniatopoulos" 
+git config --global user.email "sm2296@cornell.edu"
+
+git config --global push.default simple
+git config --global credential.helper 'cache --timeout=3600'
+git config --global core.editor 'subl -n -w'
+
+git config --global alias.last 'log -1 HEAD'
+
+git config --global --list

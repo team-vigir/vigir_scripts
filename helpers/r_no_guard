@@ -1,0 +1,5 @@
+#!/bin/bash
+
+export VIGIR_RIGHT_GUARD_TYPE="r_no_guard"
+
+echo "  Right guard type = "$VIGIR_RIGHT_GUARD_TYPE

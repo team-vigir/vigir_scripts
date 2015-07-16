@@ -1,0 +1,6 @@
+#!/bin/bash
+
+export FLOR_RIGHT_HAND_TYPE="r_hook" 
+
+echo "  Right hand type = "$FLOR_RIGHT_HAND_TYPE
+

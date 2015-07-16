@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# This script is for removing packages that were part of a workspace,
+# but are not needed anymore. Manual removal is very cumbersome.
+
+
+rm_from_workspace src/moveit/geometric_shapes
+rm_from_workspace src/moveit/moveit_docs
+rm_from_workspace src/moveit/moveit_ros
+rm_from_workspace src/moveit/household_objects_database_msgs
+rm_from_workspace src/moveit/moveit_msgs
+rm_from_workspace src/moveit/moveit_setup_assistant
+rm_from_workspace src/moveit/manipulation_msgs
+rm_from_workspace src/moveit/moveit_planners
+rm_from_workspace src/moveit/object_recognition_msgs
+rm_from_workspace src/moveit/moveit_commander
+rm_from_workspace src/moveit/moveit_plugins
+rm_from_workspace src/moveit/srdfdom
+rm_from_workspace src/moveit/moveit_core
+rm_from_workspace src/moveit/moveit_pr2
+rm_from_workspace src/vigir_simox_kinematics
+rm_from_workspace src/drcsim_install/gazebo_ros_pkgs
+rm_from_workspace src/drcsim_install/osrf-common
+rm_from_workspace src/drcsim_install/sandia-hand
+rm_from_workspace src/drcsim_install/drcsim
+rm_from_workspace src/warehouse_ros
+rm_from_workspace src/external/navigation
+rm_from_workspace vigir_interactive_marker_pose_server
+rm_from_workspace external/vigir_manipulation_planning
+rm_from_workspace external/vigir_planning_msgs
+rm_from_workspace src/motion_editor
+rm_from_workspace src/external/sbpl
+rm_from_workspace src/flor_perception

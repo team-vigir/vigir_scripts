@@ -1,0 +1,69 @@
+#!/bin/bash
+
+# If you need to reposition new windows, this is the format used by wmctrl:
+#   wmctrl -r <window_name> -e '0,<offset x>,<offset y>,<width>,<height>'
+# you can generate the input script with the current window configuration by doing
+#   wmctrl -lG > <output>
+
+echo 'Setting up glanceHub'
+wmctrl -r 'glanceHub' -e '0,1104,1902,552,272'
+
+echo 'Setting up GhostControlWidget'
+wmctrl -r 'GhostControlWidget' -e '0,1520,1146,400,366'
+
+echo 'Setting up PlannerConfigurationWidget'
+wmctrl -r 'PlannerConfigurationWidget' -e '0,1516,1542,424,294'
+
+echo 'Setting up motion_selector'
+wmctrl -r 'motion_selector' -e '0,1927,557,1028,549'
+
+echo 'Setting up TemplateManagerWidget'
+wmctrl -r 'TemplateManagerWidget' -e '0,3031,1140,930,200'
+
+echo 'Setting up WaypointManagerWidget'
+wmctrl -r 'WaypointManagerWidget' -e '0,1923,1367,400,200'
+
+echo 'Setting up ImageManagerWidget'
+wmctrl -r 'ImageManagerWidget' -e '0,1927,80,831,429'
+
+echo 'Setting up Right Hand Grasp Widget'
+wmctrl -r 'Right Hand Grasp Widget' -e '0,582,1897,520,290'
+
+echo 'Setting up Left Hand Grasp Widget'
+wmctrl -r 'Left Hand Grasp Widget' -e '0,67,1897,520,290'
+
+echo 'Setting up status_window'
+wmctrl -r 'status_window' -e '0,1926,1136,524,140'
+
+echo 'Setting up status_window'
+wmctrl -r 'status_window' -e '0,2760,81,550,400'
+
+echo 'Setting up BandwidthWidget'
+wmctrl -r 'BandwidthWidget' -e '0,2965,518,504,534'
+
+echo 'Setting up TimeWidget'
+wmctrl -r 'TimeWidget' -e '0,3487,80,353,130'
+
+echo 'Setting up vigir_rqt_control_mode__ControlModePlugin - RosGui'
+wmctrl -r 'vigir_rqt_control_mode__ControlModePlugin - RosGui' -e '0,1655,1862,265,325'
+
+echo 'Setting up vigir_rqt_joint_control__JointControlPlugin - RosGui'
+wmctrl -r 'vigir_rqt_joint_control__JointControlPlugin - RosGui' -e '0,1922,1306,675,912'
+
+echo 'Setting up Main3DViewWidget'
+wmctrl -r 'Main3DViewWidget' -e '0,67,1139,1453,732'
+
+echo 'Setting up MapViewWidget'
+wmctrl -r 'MapViewWidget' -e '0,990,80,930,1027'
+
+echo 'Setting up vigir_rqt_system_command__SystemCommandPlugin - RosGui'
+wmctrl -r 'vigir_rqt_system_command__SystemCommandPlugin - RosGui' -e '0,3650,1934,190,253'
+
+echo 'Setting up vigir_rqt_position_mode__PositionModePlugin - RosGui'
+wmctrl -r 'vigir_rqt_position_mode__PositionModePlugin - RosGui' -e '0,2597,1635,418,541'
+
+echo 'Setting up CameraViewerCustomWidget'
+wmctrl -r 'CameraViewerCustomWidget' -e '0,67,80,921,1029'
+
+echo 'Setting up vigir_rqt_position_mode__PositionModePlugin - RosGui'
+wmctrl -r 'vigir_rqt_position_mode__PositionModePlugin - RosGui' -e '0,2597,1133,418,475'

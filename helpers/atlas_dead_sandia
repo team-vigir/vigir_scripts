@@ -1,0 +1,12 @@
+#!/bin/bash
+
+echo "Set up for the terrain with dead Sandia (publish hand mass) and iRobot task ..."
+
+export FLOR_TASK_TYPE="terrain"
+export FLOR_ROBOT_TYPE="atlas_v3"
+echo "  Robot type = "$FLOR_ROBOT_TYPE
+
+. atlas_multisense
+. l_irobot
+. r_stump
+

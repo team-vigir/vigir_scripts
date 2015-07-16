@@ -1,0 +1,9 @@
+echo "--------------------------"
+echo "Connecting to Theoden for ROS master using Robot network ..."
+export ROS_MASTER_URI=http://theoden_robot:11311
+export ROS_HOSTNAME=$HOSTNAME"_robot"
+export GAZEBO_MASTER_URI=http://theoden_robot:11345
+echo $ROS_MASTER_URI
+echo $ROS_HOSTNAME
+echo "--------------------------"
+

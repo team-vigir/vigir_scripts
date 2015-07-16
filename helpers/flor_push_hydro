@@ -1,0 +1,39 @@
+#!/bin/bash
+
+cd ${ROS_WORKSPACE}
+cd vigir_perception
+git push origin hydro
+
+cd ${ROS_WORKSPACE}
+cd vigir_launch
+git push origin hydro
+
+cd ${ROS_WORKSPACE}
+cd vigir_state_estimation
+git push origin hydro
+
+cd ${ROS_WORKSPACE}
+cd vigir_control
+git push origin hydro
+
+cd ${ROS_WORKSPACE}
+cd vigir_state_estimation
+git push origin hydro
+
+cd ${ROS_WORKSPACE}
+cd ../catkin_ws/src/vigir_ocs_common
+git push origin hydro
+
+cd ${ROS_WORKSPACE}
+cd ../catkin_ws/src/flor_control
+git push origin hydro
+
+cd ${ROS_WORKSPACE}
+cd ../rosinstall
+git push origin hydro
+
+cd ${ROS_WORKSPACE}
+cd ../scripts
+git push origin hydro
+
+

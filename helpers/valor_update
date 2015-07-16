@@ -1,0 +1,65 @@
+#!/bin/bash
+
+#This could be extended to automatically create the standard directories if they are not yet existing
+
+cd ${VIGIR_ROOT_DIR}
+
+# Work around issue with rosws hanging on asking for user credentials
+echo "Update the latest rosinstall files ..."
+cd rosinstall
+git pull
+
+packages=true
+
+while getopts p flag
+do
+  case "$flag" in
+    p) packages=false;break;;
+    *) echo "Unrecognized flag $OPTARG.";break;;
+  esac
+done
+
+# Install package dependencies
+if $packages; then
+  echo "Installing packages!"
+  ${VIGIR_ROOT_DIR}/rosinstall/install_scripts/install_valor_package_dependencies.sh
+fi
+
+rm_unused_rosbuild_packages
+
+cd ${VIGIR_ROOT_DIR}/catkin_ws
+source setup.bash
+
+# Because it is very difficult to remove packages that have been added to a workspace,
+# we use this script to check for obsolete package locations and remove them if they
+# were indeed detected.
+rm_unused_catkin_packages
+
+# Required for MoveIt! stuff
+rosdep update
+rosdep install --from-paths src --ignore-src --rosdistro hydro -y
+
+rosws merge ../rosinstall/vigir_default_catkin.rosinstall
+rosws update -t ./
+rosws regenerate -t ./
+
+rosws merge ../rosinstall/valor.rosinstall -t ./
+rosws update -t ./
+rosws regenerate -t ./
+
+cd $VIGIR_ROOT_DIR/pronto-distro
+git pull
+git submodule update
+
+cd "$ASGARD_HOME"
+if git pull; then
+  echo ""
+else
+  echo -e "\033[31m !!!! WARNING WARNING WARNING: UPDATING ASGARD FAILED !!!!\n\033[0m"
+  exit 300
+fi
+
+if [ -f ~/.bashrc ]; then
+    echo "Source the .bashrc ..."
+    source ~/.bashrc
+fi

@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Wanted specify through env var, but doesn´t appear to work
+#export FLOR_LEFT_EXTENSION_LENGTH="0.1"
+
+export FLOR_LEFT_HAND_TYPE="l_irobot_with_extension" 
+
+echo "  Left hand type = "$FLOR_LEFT_HAND_TYPE

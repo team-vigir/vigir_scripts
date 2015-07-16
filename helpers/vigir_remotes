@@ -1,0 +1,41 @@
+#!/bin/bash
+
+echo
+echo "Looking for locally modified files in catkin_ws ..."
+for d in `find ${VIGIR_ROOT_DIR}/catkin_ws/src -mindepth 1 -maxdepth 1 -type d`;
+do 
+
+  cd $d
+  echo " in $PWD ..."
+  if [ -e "$d/.git" ]
+  then
+    git branch -vv
+  else
+    echo "   Not  git repository!"
+  fi
+
+done
+
+echo
+echo
+echo "Looking for locally modified files in docs ..."
+cd ${VIGIR_ROOT_DIR}/docs
+echo " in $PWD ..."
+git branch -vv
+
+
+echo
+echo
+echo "Looking for locally modified files in scripts ..."
+cd ${VIGIR_ROOT_DIR}/scripts
+echo " in $PWD ..."
+git branch -vv
+
+echo
+echo
+echo "Looking for locally modified files in rosinstall ..."
+cd ${VIGIR_ROOT_DIR}/rosinstall
+echo " in $PWD ..."
+git branch -vv
+
+echo "Done!"

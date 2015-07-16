@@ -1,0 +1,12 @@
+#!/bin/bash
+
+echo "Set up actual Atlas with two hooks ..."
+
+export FLOR_TASK_TYPE="door"
+export FLOR_ROBOT_TYPE="atlas_v3"
+echo "  Robot type = "$FLOR_ROBOT_TYPE
+
+. atlas_multisense
+. l_hook
+. r_hook
+

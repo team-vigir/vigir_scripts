@@ -1,0 +1,9 @@
+echo "--------------------------"
+echo "Connecting to Boromir for ROS master using Robot network ..."
+export ROS_MASTER_URI=http://boromir_robot:11311
+export ROS_HOSTNAME=$HOSTNAME"_robot"
+export GAZEBO_MASTER_URI=http://boromir_field:11345
+echo $ROS_MASTER_URI
+echo $ROS_HOSTNAME
+echo "--------------------------"
+

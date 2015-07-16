@@ -1,0 +1,7 @@
+echo "Connecting to cloudsim sim computer as the ROS Master ..."
+export ROS_MASTER_URI=http://10.0.0.51:11311
+export GAZEBO_MASTER_URI=http://10.0.0.51:11345
+
+#export ROS_IP=10.0.0.52
+#export GAZEBO_IP=10.0.0.52
+

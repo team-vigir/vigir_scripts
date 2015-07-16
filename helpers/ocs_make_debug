@@ -1,0 +1,12 @@
+#!/bin/bash
+
+echo ""
+echo "Compile the Florian catkin software including ocs ..."
+
+cd ${ROS_WORKSPACE}/../catkin_ws
+
+touch src/drcsim_install/gazebo_ros_pkgs/gazebo_ros_control/CATKIN_IGNORE
+catkin_make -DCMAKE_BUILD_TYPE=Debug install
+
+echo "Done!"
+

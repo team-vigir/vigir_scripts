@@ -1,0 +1,5 @@
+#!/bin/bash
+
+if ! [ "$HOSTNAME" = legolas ]; then
+    sudo nmcli -p con up id "Field (eth0)" iface eth0
+fi

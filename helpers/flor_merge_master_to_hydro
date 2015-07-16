@@ -1,0 +1,57 @@
+#!/bin/bash
+
+echo "vigir_perception.."
+cd ${ROS_WORKSPACE}
+cd vigir_perception
+git pull origin hydro
+git merge origin/master
+
+echo "vigir_launch.."
+cd ${ROS_WORKSPACE}
+cd vigir_launch
+git pull origin hydro
+git merge origin/master
+
+echo "vigir_state_estimation.."
+cd ${ROS_WORKSPACE}
+cd vigir_state_estimation
+git pull origin hydro
+git merge origin/master
+
+echo "vigir_control.."
+cd ${ROS_WORKSPACE}
+cd vigir_control
+git pull origin hydro
+git merge origin/master
+
+echo "vigir_state_estimation.."
+cd ${ROS_WORKSPACE}
+cd vigir_state_estimation
+git pull origin hydro
+git merge origin/master
+
+echo "vigir_ocs_common.."
+cd ${ROS_WORKSPACE}
+cd ../catkin_ws/src/vigir_ocs_common
+git pull origin hydro
+git merge origin/master
+
+echo "flor_control.."
+cd ${ROS_WORKSPACE}
+cd ../catkin_ws/src/flor_control
+git pull origin hydro
+git merge origin/master
+
+echo "rosinstall.."
+cd ${ROS_WORKSPACE}
+cd ../rosinstall
+git pull origin hydro
+git merge origin/master
+
+echo "scripts.."
+cd ${ROS_WORKSPACE}
+cd ../scripts
+git pull origin hydro
+git merge origin/master
+
+

@@ -1,0 +1,8 @@
+#!/bin/bash
+
+cd ${VIGIR_ROOT_DIR}
+git clone https://github.com/team-vigir/pronto-distro.git -b vigir_config_lab
+cd pronto-distro
+git submodule update --init --recursive
+make
+git remote add upstream https://github.com/mitdrc/pronto-distro.git

@@ -1,0 +1,120 @@
+#!/bin/bash
+
+function redEcho()
+{
+  echo -ne '\e[0;31m'
+  echo "$@"
+  echo -ne '\e[0m'
+}
+
+function blueEcho()
+{
+  echo -ne '\e[0;34m'
+  echo "$@"
+  echo -ne '\e[0m'
+}
+
+function findCanonicalBranch()
+{
+  dir=$1
+  rosinstalldir=$2
+
+  if [ -e "$rosinstalldir/.rosinstall" ]
+  then
+    name=$(basename $dir)
+    desiredBranch=$(perl -0 -ne 'print qq($1\n) if /\b'$name'\b.*\n.*version: ([^}]+)/mg' ${VIGIR_ROOT_DIR}/catkin_ws/.rosinstall)
+  fi
+
+  echo $desiredBranch
+}
+
+function isLocalBranchName()
+{
+    branch=$1
+
+    git rev-parse --verify --quiet refs/heads/$branch > /dev/null
+}
+
+function isRemoteBranchName()
+{
+    branch=$1
+
+    git rev-parse --verify --quiet refs/remotes/origin/$branch > /dev/null
+}
+
+#check if a revision is a branch name or just a hash
+function isBranchName()
+{
+    branch=$1
+
+    isLocalBranchName $1 || isRemoteBranchName $1
+}
+
+function displayStatus()
+{
+  old_d=`pwd`
+  dir=$1
+  desiredBranch=$2
+
+  cd $dir
+  if [ -z "$desiredBranch" ]
+  then
+    desiredBranch=$(git log --pretty='%d' -1 remotes/origin/HEAD | perl -ne 'm#(?<=origin/)([^,]*)# && print "$1\n"')
+  fi
+
+  if [ -e "$dir/.git" ]
+  then
+    if { isBranchName "$desiredBranch" && [ "$(git rev-parse --abbrev-ref HEAD)" != "$desiredBranch" ] ; } \
+       || { ! isBranchName "$desiredBranch" && [ "$(git rev-parse HEAD)" != "$(git rev-parse $desiredBranch)" ] ; } \
+       || [ -n "$(git -c status.branch=false status -s)" ] \
+       || [ -n "$(git -c status.branch=true status -s | grep -P '\[.*(ahead|behind)')" ]
+    then
+      echo "$PWD :"
+      if [ "$(git rev-parse --abbrev-ref HEAD)" != "$desiredBranch" ]
+      then
+        git status | grep "On branch" | perl -pe "chomp"
+        redEcho " (should be on branch $desiredBranch)"
+      fi
+      git -c color.ui=always -c status.branch=true status -s
+      echo
+    fi
+  elif [ -e "$dir/.hg" ]; then
+    if [ "$(hg branch)" != "$desiredBranch" ] \
+       || [ -n "$(hg status)" ]
+    then
+      echo "$PWD :"
+      echo "On hg branch `hg branch`"
+      hg status
+      hg incoming | grep "changes"
+      echo
+    fi
+  #else
+    #echo "$PWD is not a repository!"
+    #echo
+  fi
+  cd $old_d
+}
+
+catkin_src=$(readlink -f ${VIGIR_ROOT_DIR}/catkin_ws/src)
+blueEcho "Looking for changes in ${catkin_src} ..."
+for d in `find  ${catkin_src} -type d -name .git`;
+do
+  dir=$(readlink -f $d/..)
+  branch=$(findCanonicalBranch $dir ${catkin_src}/..)
+  displayStatus $dir $branch
+done
+
+for d in `find  ${catkin_src} -type d -name .hg`;
+do
+  dir=$(readlink -f $d/..)
+  branch=$(findCanonicalBranch $dir ${catkin_src}/..)
+  displayStatus $dir $branch
+done
+
+cd ${VIGIR_ROOT_DIR}/scripts
+blueEcho "Looking for changes in $PWD ..."
+displayStatus $PWD
+
+cd ${VIGIR_ROOT_DIR}/rosinstall
+blueEcho "Looking for changes in $PWD ..."
+displayStatus $PWD

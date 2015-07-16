@@ -1,0 +1,6 @@
+echo "Connecting to Sam for ROS master using OCS network ..." 
+export ROS_MASTER_URI=http://sam:11311
+export GAZEBO_MASTER_URI=http://sam:11345
+set_ocs_ros_hostname
+
+

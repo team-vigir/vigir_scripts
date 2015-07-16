@@ -1,0 +1,5 @@
+#!/bin/bash
+
+echo "roslaunch vigir_ocs vigir_ocs.launch"
+roslaunch vigir_ocs vigir_ocs.launch
+

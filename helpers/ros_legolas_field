@@ -1,0 +1,4 @@
+echo "Connecting to legolas as the ROS Master using Field network ..."
+export ROS_MASTER_URI=http://legolas_field:11311
+export GAZEBO_MASTER_URI=http://legolas_field:11345
+set_field_ros_hostname

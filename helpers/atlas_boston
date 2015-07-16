@@ -1,0 +1,12 @@
+#!/bin/bash
+
+export FLOR_ROBOT_TYPE="atlas_v4_no_wry2" 
+export FLOR_LEFT_HAND_TYPE="l_stump" 
+export FLOR_RIGHT_HAND_TYPE="r_stump" 
+
+echo "Set up for the ATLAS robot for Boston Work Week ..."
+echo "  Robot type = "$FLOR_ROBOT_TYPE
+echo "  Left hand type = "$FLOR_LEFT_HAND_TYPE
+echo "  Right hand type = "$FLOR_RIGHT_HAND_TYPE
+source atlas_multisense
+

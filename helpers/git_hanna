@@ -1,0 +1,2 @@
+git config --global user.name "Shawn Hanna" 
+git config --global user.email "hanna@torcrobotics.com" 

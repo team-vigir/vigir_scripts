@@ -1,0 +1,25 @@
+#!/bin/bash
+
+if [ "$HOSTNAME" = frodo ]; then
+
+    echo "Tried to kill roscore"
+    screen -x  roscore -X quit
+
+    if [ "$1" != "no_comms" ]; then
+        echo "Tried to kill ocs comms bridge"
+        screen -x  comms_bridge     -X quit
+    else
+        echo "Did not kill comms_bridge"
+    fi
+
+    echo "Tryied to kill ocs_comms"
+    screen -x  comms_ocs   -X quit
+
+    echo "Anyone still out there?"
+    screen -ls
+
+else
+
+    echo "Please run from frodo"
+
+fi

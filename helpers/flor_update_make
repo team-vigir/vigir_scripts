@@ -1,0 +1,4 @@
+#!/bin/bash
+#sudo echo "Grab the sudo password for later simox compile"
+flor_update
+flor_make

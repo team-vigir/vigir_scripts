@@ -1,0 +1,7 @@
+#!/bin/bash
+
+export FLOR_LEFT_HAND_TYPE="l_irobot" 
+export FLOR_RIGHT_HAND_TYPE="r_irobot"
+
+echo "  Left hand type = "$FLOR_LEFT_HAND_TYPE
+echo "  Right hand type = "$FLOR_RIGHT_HAND_TYPE

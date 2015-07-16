@@ -1,0 +1,13 @@
+#!/bin/bash
+
+export FLOR_TASK_TYPE="calibration"
+export FLOR_ROBOT_TYPE="atlas_v3_shoulder_mod" 
+export FLOR_LEFT_HAND_TYPE="l_hook" 
+export FLOR_RIGHT_HAND_TYPE="r_hook" 
+export FLOR_MULTISENSE_TYPE="fixed_joints"
+
+echo "Set up for the CALIBRATION task ..."
+echo "  Robot type = "$FLOR_ROBOT_TYPE
+echo "  Left hand type = "$FLOR_LEFT_HAND_TYPE
+echo "  Right hand type = "$FLOR_RIGHT_HAND_TYPE
+echo "  Multisense type = "$FLOR_MULTISENSE_TYPE

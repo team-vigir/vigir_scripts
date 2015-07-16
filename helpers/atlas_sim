@@ -1,0 +1,13 @@
+#!/bin/bash
+
+echo "Set up with Atlas v5 for Gazebo simulation ..."
+
+export FLOR_TASK_TYPE="door"
+export FLOR_ROBOT_TYPE="atlas_v5"
+echo "  Robot type = "$FLOR_ROBOT_TYPE
+export FLOR_MULTISENSE_TYPE="sim"
+echo "  Multisense type = "$FLOR_MULTISENSE_TYPE
+
+. l_stump
+. r_stump
+

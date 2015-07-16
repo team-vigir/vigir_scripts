@@ -1,0 +1,42 @@
+#!/bin/bash
+
+# If you need to reposition new windows, this is the format used by wmctrl:
+#   wmctrl -r <window_name> -e '0,<offset x>,<offset y>,<width>,<height>' 
+# you can also look at the windows that are currently open by doing
+#   wmctrl -lG
+
+echo 'Setting up TemplateManagerWidget'
+wmctrl -r 'TemplateManagerWidget' -e '0,1921,1081,930,200'
+
+echo 'Setting up WaypointManagerWidget'
+wmctrl -r 'WaypointManagerWidget' -e '0,1921,1311,400,200'
+
+echo 'Setting up JoystickWidget'
+wmctrl -r 'JoystickWidget' -e '0,1921,0,168,276'
+
+echo 'Setting up TimeWidget'
+wmctrl -r 'TimeWidget' -e '0,3600,0,350,130'
+
+echo 'Setting up Right Hand Grasp Widget'
+wmctrl -r 'Right Hand Grasp Widget' -e '0,580,1900,520,290'
+
+echo 'Setting up Left Hand Grasp Widget'
+wmctrl -r 'Left Hand Grasp Widget' -e '0,0,1900,520,290'
+
+echo 'Setting up vigir_rqt_control_mode__ControlModePlugin - RosGui'
+wmctrl -r 'vigir_rqt_control_mode__ControlModePlugin - RosGui' -e '0,1245,1900,317,340'
+
+echo 'Setting up vigir_rqt_position_mode__PositionModePlugin - RosGui'
+wmctrl -r 'vigir_rqt_position_mode__PositionModePlugin - RosGui' -e '0,1580,1900,357,340'
+
+echo 'Setting up vigir_rqt_joint_control__JointControlPlugin - RosGui'
+wmctrl -r 'vigir_rqt_joint_control__JointControlPlugin - RosGui' -e '0,1245,1079,673,683'
+
+echo 'Setting up Main3DViewWidget'
+wmctrl -r 'Main3DViewWidget' -e '0,0,1080,1180,734'
+
+echo 'Setting up MapViewWidget'
+wmctrl -r 'MapViewWidget' -e '0,991,0,930,1027'
+
+echo 'Setting up CameraViewerCustomWidget'
+wmctrl -r 'CameraViewerCustomWidget' -e '0,0,0,930,1027'

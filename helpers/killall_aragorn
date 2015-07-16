@@ -1,0 +1,28 @@
+#   !/bin/bash
+
+if [ "$HOSTNAME" = aragorn ]; then
+
+#    echo "Tried to kill roscore"
+#    screen -x  roscore -X quit
+#
+    echo "Tried to kill basic_controller "
+    screen -x  basic_controller     -X quit
+
+    if [ "$1" != "no_comms" ]; then
+        echo "Tried to kill comms_bridge"
+        screen -x  comms_bridge   -X quit
+    else
+        echo "Did not kill comms_bridge"
+    fi
+
+    echo "Tried to kill onboard_recorder"
+    screen -x  onboard_recorder   -X quit
+
+    echo "Anyone still out there?"
+    screen -ls
+
+else
+
+    echo "Please run from aragorn"
+
+fi

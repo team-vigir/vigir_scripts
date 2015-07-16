@@ -1,0 +1,6 @@
+#!/bin/bash
+
+source flor_status
+
+blueEcho "Looking for changes in $ASGARD_HOME ..."
+displayStatus $ASGARD_HOME

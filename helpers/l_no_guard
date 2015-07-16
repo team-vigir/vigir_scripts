@@ -1,0 +1,5 @@
+#!/bin/bash
+
+export VIGIR_LEFT_GUARD_TYPE="l_no_guard"
+
+echo "  Left guard type = "$VIGIR_LEFT_GUARD_TYPE

@@ -1,0 +1,5 @@
+#!/bin/bash
+
+if ! [ "$HOSTNAME" = legolas ]; then
+    sudo nmcli -p con up id "Robot (eth1)" iface eth1
+fi

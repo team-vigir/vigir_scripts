@@ -1,0 +1,4 @@
+#!/bin/bash
+
+echo "roslaunch vigir_onboard_gazebo onboard_all.launch"
+roslaunch vigir_onboard_gazebo onboard_all.launch

@@ -1,0 +1,5 @@
+echo "Connecting to arwen as the ROS Master using OCS network ..."
+export ROS_MASTER_URI=http://arwen:11311
+export GAZEBO_MASTER_URI=http://arwen:11345
+set_ocs_ros_hostname
+

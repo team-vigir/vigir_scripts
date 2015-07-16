@@ -1,0 +1,46 @@
+#!/bin/bash
+echo "This version assumed that Sam was motion/beh on Field side, need to swap with Frodo"
+
+if [ "$HOSTNAME" = sam ]; then
+
+    echo "Stopping any old startups"
+    killall_sam "$1"
+
+    echo "Setting Network"
+
+    if [ $(ifconfig eth1 | grep inet | grep -v inet6 | awk '{print $2}') != 'addr:10.66.171.103' ]; then
+        robot_eth1
+    fi
+
+    if [ $(ifconfig eth0 | grep inet | grep -v inet6 | awk '{print $2}') != 'addr:172.24.21.7' ]; then
+        field_eth0
+    fi
+
+    if ! rostopic list &>/dev/null; then
+        echo "Conner, you idiot, start ROS"
+        exit
+    fi
+
+    PS1='$ '
+    source ~/.bashrc
+
+    screen  -S hand_hardware -d -m /bin/bash -ic "roslaunch flor_atlas_bringup hand_hardware.launch; bash"
+    echo "Started hand_hardware screen"
+
+    screen  -S motion         -d -m /bin/bash -ic "roslaunch vigir_onboard motion.launch; bash"
+    echo "Started motion screen"
+
+    if [ "$1" != "no_comms" ]; then
+        screen  -S comms_bridge         -d -m /bin/bash -ic "roslaunch vigir_comms_bridge field_bridge_sam.launch; bash"
+        echo "Started comms bridge screen"
+    else
+        echo "Did not start comms bridge screen"
+    fi
+
+    screen -ls
+
+else
+
+    echo "Please run from sam"
+
+fi

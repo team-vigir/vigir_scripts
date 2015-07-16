@@ -1,0 +1,4 @@
+#!/bin/bash
+
+export FLOR_MULTISENSE_TYPE="real"
+echo "  Multisense type = "$FLOR_MULTISENSE_TYPE

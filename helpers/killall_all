@@ -1,0 +1,12 @@
+#!/bin/bash
+
+computers=( frodo aragorn legolas sam )
+
+for computer in ${computers[*]}; do
+    echo "Killing processes on $computer"
+    ssh $computer"_field" "killall_$computer \"$1\""
+done
+
+echo "Anyone still out there?"
+screen -ls
+

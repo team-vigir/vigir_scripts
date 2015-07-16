@@ -1,0 +1,112 @@
+#!/bin/bash
+
+# This is mainly to ask for sudo at the beginning and not mid-build
+
+CLEAN=false
+CONFIGURE=false
+PLATFORM=""
+SIMOX=false
+PKG=""
+BUILD="Release"
+PRONTO=true
+if [ ! -z $1 ]
+  then
+    # to add more options do "... --long clean,option2,option3 -- ..." and add them to the case
+    TEMP=`getopt -o ctxp:b:r --long clean,configure,platform:,build,pkg:,pronto -- "$@"`
+
+    if [ $? != 0 ] ; then echo "Please use --clean to pre-clean or no option" >&2 ; exit 1 ; fi
+
+    eval set -- "$TEMP"
+
+    while true; do
+      case "$1"
+        in
+        # if you add a new option don't forget to add it to the TEMP string above!
+          -c|--clean) CLEAN=true;break;;
+          -p|--platform)PLATFORM=$2;shift 2;break;;
+          -x|--configure) CONFIGURE=true;break;;
+          -b|--build)BUILD=$2;shift 2;break;;
+          --pkg)PKG=$2;shift 2;break;;
+          -r|--pronto) PRONTO=false;break;;
+          *) echo "Argument is unknown, use '--clean' if you want to pre-clean the build";exit;;
+        esac
+    done
+fi
+
+if [ -n $VIGIR_ENV ]
+then
+  if [ "$VIGIR_ENV" == "Indigo" ]
+  then
+    echo $VIGIR_ENV" == Indigo - Ready to roll!"
+  else
+    if [ "$VIGIR_ENV" == "Flor" ]
+    then
+      echo $VIGIR_ENV" == Flor - Ready to roll!"
+    else
+      echo $VIGIR_ENV" != Flor - need to set up 'vig' or 'flor' Indigo environment first!"
+      exit
+    fi
+  fi
+else
+  echo -e "VIGIR_ENV not set - set up the 'flor' Indigo environment first!"
+  exit
+fi
+
+if $CLEAN
+then
+#  echo " Clean simox ..."
+#  cd ${ROS_WORKSPACE}/../simox
+#  sudo rm build/ -rf
+
+  echo " Clean catkin-based software ..."
+  cd ${VIGIR_ROOT_DIR}/catkin_ws
+  rm -rf devel/ build/ install/
+fi
+
+#echo " Compile simox ..."
+#simox_make
+
+echo "Compile ASGARD ..."
+cd "$ASGARD_HOME"
+if [ ! -d "$ASGARD_HOME/build/waf" ] || $CONFIGURE ; then
+  ./waf configure
+fi
+./waf install
+
+message=$?
+if [ $message != 0 ]; then
+  echo "ASGARD build failed!"
+  exit $message;
+fi
+
+if [ -n "$PLATFORM" ]; then
+  ./waf $PLATFORM
+fi
+
+if $PRONTO; then
+  echo " Compile pronto ..."
+  cd ${VIGIR_ROOT_DIR}/pronto-distro
+  make
+fi
+
+echo " Compile catkin-based software ..."
+
+echo ""
+echo "Compile the Florian catkin software including ocs ..."
+cd ${VIGIR_ROOT_DIR}/catkin_ws
+
+PKG_STRING=""
+if [ -n "$PKG" ]; then
+  PKG_STRING="--pkg $PKG"
+fi
+
+catkin_make install $PKG_STRING -DCMAKE_BUILD_TYPE=$BUILD
+message=$?
+echo $message
+#Case there is error
+if [ $message != 0 ] ; then echo "Error in executing catkin_make"; exit 1; fi
+
+echo "Done!"
+
+echo "Done building Team ViGIR base software!"
+

@@ -1,0 +1,85 @@
+#!/bin/bash -e
+
+# Merges the content of a video output directory with a directory with bag files.
+# The video files will be renamed and merge to the bag-file-directories
+# Video files are recognised with the Experiment.txt and are searched recursively.
+# Target directories are searched recursively with Experiment.txt and bag files.
+# 
+# Useage:
+# vigir
+# cd scripts/helper
+# ./merge_video_bag_folders /path/to/video-files /path/to/bag/files
+
+# Moritz Schappler, schappler@irt.uni-hannover.de, 2015-05
+# (c) Institut für Regelungstechnik, Universität Hannover
+
+# Check Input
+if [ ! -d "$1" ]; then
+  echo "Directory $1 does not exist."
+  exit
+fi
+
+if [ ! -d "$2" ]; then
+  echo "Directory $2 does not exist."
+  exit
+fi
+
+# find all experiment description files for the videos
+for f_vid in $(find $1/ -name 'Experiment.txt') 
+do
+  filename_vid=$(basename "$f_vid")
+  filename_vid="${filename%.*}" # gets filename without path and extension
+  pathtofile_vid=$(dirname "$f_vid") # gets directory of the file
+  
+  echo "Looking for target directory for $f_vid"
+
+  # get name of the experiment (unique. Bag filename with datestamp in case of sysid experiment and unique name in case of logging widget).
+  expname_vid=$(cat $f_vid | grep -oP '(?<=<Name>).*?(?=</Name>)')
+
+  # reset target directory for moving video files
+  directory_target=""
+
+  # Search for experiment description files in the bag directory (created by  video logger)
+  for f_bag in $(find $2/ -name 'Experiment.txt') 
+  do
+    # see if descriptions match in log description files
+    expname_bag=$(cat $f_bag | grep -oP '(?<=<Name>).*?(?=</Name>)')   
+    if [ "$expname_bag" != "$expname_vid" ]; then
+      continue
+    else
+      filename_bag=$(basename "$f_bag")
+      filename_bag="${filename%.*}" # gets filename without path and extension
+      pathtofile_bag=$(dirname "$f_bag") # gets directory of the file  
+      directory_target=$pathtofile_bag
+      break
+    fi 
+  done
+
+  # see if bag exists. Might be the case if bag is created by the system identification behaviour
+  # search for the original bag file as well as the _starting bag file (in case the experiment aborted during start
+  for f_bag in $(find $2/ -name "${expname_vid}*.bag") 
+  do
+    filename_bag=$(basename "$f_bag")
+    filename_bag="${filename%.*}" # gets filename without path and extension
+    directory_target=$(dirname "$f_bag") # gets directory of the file  
+    break
+  done
+  if [ "$directory_target" == "" ]; then
+    echo "no target directory found for $f_vid"
+    continue
+  else
+    echo "Target directory found: $f_vid -> $directory_target"
+  fi
+
+  # rename all files to be starting with unique name
+  cd $pathtofile_vid
+  
+  rename "s/^/${expname_vid}_/" *
+  echo "renamed all files in $pathtofile_vid with prefix $expname_vid"
+ 
+  # move video folder into bag folder (merge)
+  mv * $directory_target
+  echo "moved all files in $pathtofile_vid to $directory_target"
+
+ done
+

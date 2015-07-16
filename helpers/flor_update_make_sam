@@ -1,0 +1,8 @@
+sudo nmcli -p con up id "DHCP (eth1)" iface eth1
+
+flor_update
+
+sudo nmcli -p con up id "Robot (eth1)" iface eth1
+
+flor_make
+

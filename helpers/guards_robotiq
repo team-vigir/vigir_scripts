@@ -1,0 +1,4 @@
+#!/bin/bash
+
+l_robotiq_guard
+r_robotiq_guard

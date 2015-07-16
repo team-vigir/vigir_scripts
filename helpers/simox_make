@@ -1,0 +1,20 @@
+#!/bin/bash
+
+echo ""
+echo "Compile Simox ..."
+
+cd ${ROS_WORKSPACE}/../simox
+
+if [ ! -d "build/" ]; then
+  mkdir build
+  cd build
+  cmake ..
+  cd ..
+fi
+
+cd build
+make -j4
+sudo make install
+
+echo "Done!"
+

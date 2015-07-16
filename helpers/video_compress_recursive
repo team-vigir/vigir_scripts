@@ -1,0 +1,38 @@
+#!/bin/bash -e
+
+# Search the video output directory for any uncompressed video files (avi) and 
+# compresses them, if compressed video (mkv) is not available.
+# There must not be any white spaces in the path
+#
+# Useage:
+# vigir
+# cd scripts/helper
+# ./video_compress_recursive /path/to/video-files
+
+# Moritz Schappler, schappler@irt.uni-hannover.de, 2015-04
+# (c) Institut für Regelungstechnik, Universität Hannover
+
+# Check Input
+if [ ! -d "$1" ]; then
+  echo "Directory "$1" does not exist."
+  exit
+fi
+
+# Loop through all video files
+for f in $(find $1/ -name '*.avi') # find all avi video files
+do
+  filename=$(basename "$f")
+  filename="${filename%.*}" # gets filename without path and extension
+  pathtofile=$(dirname "$f") # gets directory of the file
+
+  filepath_mkv="$pathtofile/${filename}_compressed.mkv" # generate mkv filename
+
+  # check if mkv file exists
+  if [ ! -f "$filepath_mkv" ]; then
+    echo "mkv-file $filepath_mkv  not found. Compressing video from $filepath_avi"
+    avconv -i $f $filepath_mkv
+  else
+    echo "mkv-file $filepath_mkv already exists"
+  fi 
+done
+

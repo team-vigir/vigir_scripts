@@ -1,0 +1,2 @@
+git config --global user.name "Pachu Chembukave" 
+git config --global user.email "pachu@torcrobotics.com" 

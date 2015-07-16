@@ -1,0 +1,2 @@
+git config --global user.name "Team ViGIR user - please use proper credentials" 
+git config --global user.email "user@teamvigir.org" 

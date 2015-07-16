@@ -1,0 +1,53 @@
+#!/bin/bash
+
+echo "Tagging all of the vigir project folders with $1  ..."
+#cd /opt/vigir/vigir_behaviors
+#git tag $1
+#git push origin $1
+#cd ../vigir_common
+#git tag $1
+#git push origin $1
+
+#-- hold for catkinized conversion --
+echo "Looking for locally modified files in catkin_ws ..."
+for d in `find ${VIGIR_ROOT_DIR}/catkin_ws/src -mindepth 1 -maxdepth 1 -type d`;
+do
+
+  cd $d
+  echo " in $PWD ..."
+  if [ -e "$d/.git" ]
+  then
+    git tag $1
+    git push origin $1
+  else
+    echo "   Not  git repository!"
+  fi
+
+done
+
+echo "Looking for locally modified files in docs ..."
+cd ${VIGIR_ROOT_DIR}/docs
+echo " in $PWD ..."
+git tag $1
+git push origin $1
+
+echo "Looking for locally modified files in scripts ..."
+cd ${VIGIR_ROOT_DIR}/scripts
+echo " in $PWD ..."
+git tag $1
+git push origin $1
+
+echo "Looking for locally modified files in rosinstall ..."
+cd ${VIGIR_ROOT_DIR}/rosinstall
+echo " in $PWD ..."
+git tag $1
+git push origin $1
+
+echo "Looking for locally modified files in flor_atlas_robot_interface ..."
+cd ${VIGIR_ROOT_DIR}/flor_atlas_robot_interface
+echo " in $PWD ..."
+git tag $1
+git push origin $1
+
+echo "Done!"
+

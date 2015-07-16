@@ -1,0 +1,50 @@
+#!/bin/bash
+
+echo "vigir_perception.."
+cd ${VIGIR_ROOT_DIR}
+cd catkin_ws/src/vigir_perception
+git checkout master
+git pull
+
+echo "vigir_launch.."
+cd ${VIGIR_ROOT_DIR}
+cd catkin_ws/src/vigir_launch
+git checkout master
+git pull
+
+echo "vigir_state_estimation.."
+cd ${VIGIR_ROOT_DIR}
+cd catkin_ws/src/vigir_state_estimation
+git checkout master
+git pull
+
+echo "vigir_control.."
+cd ${VIGIR_ROOT_DIR}
+cd catkin_ws/src/vigir_control
+git checkout master
+git pull
+
+echo "vigir_ocs_common.."
+cd ${VIGIR_ROOT_DIR}
+cd catkin_ws/src/vigir_ocs_common
+git checkout master
+git pull
+
+echo "flor_control.."
+cd ${VIGIR_ROOT_DIR}
+cd catkin_ws/src/flor_control
+git checkout master
+git pull
+
+echo "rosinstall.."
+cd ${VIGIR_ROOT_DIR}
+cd rosinstall
+git checkout master
+git pull
+
+echo "scripts.."
+cd ${VIGIR_ROOT_DIR}
+cd scripts
+git checkout master
+git pull
+

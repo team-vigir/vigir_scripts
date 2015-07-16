@@ -1,0 +1,87 @@
+#!/bin/bash
+
+# Used in custom prompt
+export VIGIR_ENV="Indigo"
+
+
+export FLOR_ROBOT_TYPE="atlas_v5"
+export FLOR_LEFT_HAND_TYPE="l_stump"
+export FLOR_RIGHT_HAND_TYPE="r_stump"
+export FLOR_MULTISENSE_TYPE="sim"
+export FLOR_TASK_TYPE="valve"
+export VIGIR_LEFT_GUARD_TYPE="l_no_guard"
+export VIGIR_RIGHT_GUARD_TYPE="r_no_guard"
+echo "Robot type = "$FLOR_ROBOT_TYPE
+echo "Left hand type = "$FLOR_LEFT_HAND_TYPE
+echo "Right hand type = "$FLOR_RIGHT_HAND_TYPE
+echo "Multisense type = "$FLOR_MULTISENSE_TYPE
+echo "Task type = "$FLOR_TASK_TYPE
+echo "Left guard type = "$VIGIR_LEFT_GUARD_TYPE
+echo "Right guard type = "$VIGIR_RIGHT_GUARD_TYPE
+
+echo "Setting up the Indigo environment ..."
+unset ROSLISP_PACKAGE_DIRECTORY
+unset ROS_ROOT
+unset ROS_PACKAGE_PATH
+unset ROS_MASTER_URI
+unset ROS_DISTRO
+unset ROS_ETC_DIR
+
+
+if [ -z "$VIGIR_ROOT_DIR" ]; then
+	echo
+	echo "-------------------------------------------------------------------------"
+	echo "-------------------------------------------------------------------------"
+	echo
+	echo " The VIGIR_ROOT_DIR (e.g. ~/vigir_repo ) is not set.  "
+	echo " This must be set for the scripts and build system to work correctly!"
+	echo
+	echo " Please correct in the .bashrc and re-start shell!"
+	echo
+	echo "-------------------------------------------------------------------------"
+	echo "-------------------------------------------------------------------------"
+	echo
+else
+
+	if [ -f ${VIGIR_ROOT_DIR}/catkin_ws/setup.bash ]; then
+		echo "Setting up the development environment ..."
+		source ${VIGIR_ROOT_DIR}/catkin_ws/setup.bash
+		source ${VIGIR_ROOT_DIR}/catkin_ws/devel/setup.bash
+	else
+		if [ -f ${VIGIR_ROOT_DIR}/catkin_ws/install/setup.bash ]; then
+			echo "Setting up the installation environment ..."
+			source ${VIGIR_ROOT_DIR}/catkin_ws/install/setup.bash
+		else
+			echo "Missing the ViGIR software environment!"
+		fi
+	fi
+	# HACK: Drcsim will kill our environment...... [Worked around by sourcing our own drcsim setup]
+	#VIGIR_ROS_WORKSPACE=$ROS_WORKSPACE
+	#VIGIR_ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH
+
+	echo "Setting up the latest drcsim environment ..."
+	# We now use drcsim installed from .deb. Per default, the setup file sources the ROS
+	# installation's setup.bash file, effectively overwriting our workspace settings.
+	# For this reason, the below setup.sh script is the original drcsim setup.sh minus the
+	# first two steps.
+	source ${VIGIR_ROOT_DIR}/scripts/drcsim/setup.sh
+
+	# Earlier approaches for sourcing drcsim setup below
+	#source ${VIGIR_ROOT_DIR}/catkin_ws/install/share/drcsim/setup.sh
+	#source /usr/share/drcsim/setup.sh
+
+
+	# HACK: Restore environment [Worked around by sourcing our own drcsim setup]
+	#export ROS_WORKSPACE=$VIGIR_ROS_WORKSPACE
+	#export ROS_PACKAGE_PATH=$VIGIR_ROS_PACKAGE_PATH
+
+	export GAZEBO_MODEL_PATH=${VIGIR_ROOT_DIR}/catkin_ws/src/vigir_scenarios/vigir_scenario_models:${VIGIR_ROOT_DIR}/catkin_ws/src/vigir_robot:${VIGIR_ROOT_DIR}/catkin_ws/src/external/robotiq:$GAZEBO_MODEL_PATH:${VIGIR_ROOT_DIR}/gazebo_models
+	export GAZEBO_RESOURCE_PATH=$GAZEBO_RESOURCE_PATH:${VIGIR_ROOT_DIR}/catkin_ws/src/vigir_scenarios/vigir_scenario_models/drc_trial_tasks:${VIGIR_ROOT_DIR}/catkin_ws/src/vigir_scenarios/vigir_scenario_models/vrc_tasks:${VIGIR_ROOT_DIR}/catkin_ws/src/vigir_scenarios/vigir_scenario_models/flor_atlas_description
+
+	# Always use gazebo with cheats enabled
+	export VRC_CHEATS_ENABLED=1
+fi
+
+# Required by BDI AtlasInterface. Should check for adverse effects on onboard computers
+ulimit -s unlimited
+ulimit -c unlimited

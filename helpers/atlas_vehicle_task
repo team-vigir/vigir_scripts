@@ -1,0 +1,12 @@
+#!/bin/bash
+
+echo "Set up for the VEHICLE task ..."
+
+export FLOR_TASK_TYPE="vehicle"
+export FLOR_ROBOT_TYPE="atlas_v3"
+echo "  Robot type = "$FLOR_ROBOT_TYPE
+
+. atlas_multisense
+. l_irobot
+. r_hook
+

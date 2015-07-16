@@ -1,0 +1,12 @@
+#!/bin/bash
+
+echo "Set up for the DEBRIS task ..."
+
+export FLOR_TASK_TYPE="debris"
+export FLOR_ROBOT_TYPE="atlas_v3"
+echo "  Robot type = "$FLOR_ROBOT_TYPE
+
+. atlas_multisense
+. l_irobot_with_extension
+. r_hook
+

@@ -1,0 +1,54 @@
+#!/bin/bash
+echo "This version assumed that Frodo was the Comms station on the OCS side, need to swap with Sam"
+
+if [ "$HOSTNAME" = frodo ]; then
+
+    echo "Stopping any old startups"
+    killall_frodo "$1"
+
+    echo "Setting Network"
+
+    if [ $(ifconfig eth1 | grep inet | grep -v inet6 | awk '{print $2}') != 'addr:10.66.171.105' ]; then
+        robot_eth1
+    fi
+
+    if [ $(ifconfig eth1 | grep inet | grep -v inet6 | awk '{print $2}') != 'addr:172.24.21.4' ]; then
+        field_eth0
+    fi
+
+# Need to change scripts
+#    if [ $(ifconfig eth0 | grep inet | grep -v inet6 | awk '{print $2}') != 'addr:172.24.11.4' ]; then
+#        ocs_eth0
+#    fi
+
+    if ! rostopic list &>/dev/null; then
+        echo "Conner, you idiot, start ROS"
+        exit
+    fi
+
+
+    PS1='$ '
+    source ~/.bashrc
+
+#    screen  -S roscore -d -m /bin/bash -ic "roscore; bash"
+#    echo "Started roscore screen. Waiting 6 seconds before continuing"
+#
+#    sleep 6
+
+    screen  -S comms_ocs     -d -m /bin/bash -ic "roslaunch vigir_ocs vigir_ocs_comms.launch; bash"
+    echo "Started OCS comms screen"
+
+    if [ "$1" != "no_comms" ]; then
+        screen  -S comms_bridge   -d -m /bin/bash -ic "roslaunch vigir_comms_bridge ocs_bridge.launch; bash"
+        echo "Started comms_bridge screen"
+    else
+        echo "Did not start comms bridge screen"
+    fi
+
+    screen -ls
+
+else
+
+    echo "Please run from frodo"
+
+fi

@@ -1,0 +1,84 @@
+#!/bin/bash
+
+# If you need to reposition new windows, this is the format used by wmctrl:
+#   wmctrl -r <window_name> -e '0,<offset x>,<offset y>,<width>,<height>'
+# you can generate the input script with the current window configuration by doing
+#   wmctrl -lG > <output>
+
+echo 'Setting up glanceHub'
+wmctrl -r 'glanceHub' -e '0,1927,766,552,272'
+
+echo 'Setting up flor_bounding_box_widget'
+wmctrl -r 'flor_bounding_box_widget' -e '0,1114,1829,116,291'
+
+echo 'Setting up GhostControlWidget'
+wmctrl -r 'GhostControlWidget' -e '0,1504,1068,410,452'
+
+echo 'Setting up PlannerConfigurationWidget'
+wmctrl -r 'PlannerConfigurationWidget' -e '0,1496,1552,424,358'
+
+echo 'Setting up motion_selector'
+wmctrl -r 'motion_selector' -e '0,2490,526,1098,480'
+
+echo 'Setting up TemplateManagerWidget'
+wmctrl -r 'TemplateManagerWidget' -e '0,2835,1037,709,150'
+
+echo 'Setting up WaypointManagerWidget'
+wmctrl -r 'WaypointManagerWidget' -e '0,3540,1038,300,127'
+
+echo 'Setting up ImageManagerWidget'
+wmctrl -r 'ImageManagerWidget' -e '0,1931,13,840,519'
+
+echo 'Setting up Right Hand Grasp Widget'
+wmctrl -r 'Right Hand Grasp Widget' -e '0,592,1830,520,290'
+
+echo 'Setting up Left Hand Grasp Widget'
+wmctrl -r 'Left Hand Grasp Widget' -e '0,72,1829,520,290'
+
+echo 'Setting up status_window'
+wmctrl -r 'status_window' -e '0,1931,604,471,131'
+
+echo 'Setting up status_window'
+wmctrl -r 'status_window' -e '0,3251,276,550,400'
+
+echo 'Setting up BandwidthWidget'
+wmctrl -r 'BandwidthWidget' -e '0,2770,13,335,516'
+
+echo 'Setting up TimeWidget'
+wmctrl -r 'TimeWidget' -e '0,3487,13,353,130'
+
+echo 'Setting up vigir_rqt_control_mode__ControlModePlugin - RosGui'
+wmctrl -r 'vigir_rqt_control_mode__ControlModePlugin - RosGui' -e '0,2336,1437,310,423'
+
+echo 'Setting up vigir_rqt_joint_control__JointControlPlugin - RosGui'
+wmctrl -r 'vigir_rqt_joint_control__JointControlPlugin - RosGui' -e '0,2654,1197,675,912'
+
+echo 'Setting up vigir_rqt_bdi_pelvis_pose__BDIPelvisPosePlugin - RosGui'
+wmctrl -r 'vigir_rqt_bdi_pelvis_pose__BDIPelvisPosePlugin - RosGui' -e '0,2348,1067,297,324'
+
+echo 'Setting up vigir_rqt_step_interface__StepInterfacePlugin - RosGui'
+wmctrl -r 'vigir_rqt_step_interface__StepInterfacePlugin - RosGui' -e '0,1520,1953,400,167'
+
+echo 'Setting up Default - RosGui'
+wmctrl -r 'Default - RosGui' -e '0,2653,1040,601,148'
+
+echo 'Setting up Main3DViewWidget'
+wmctrl -r 'Main3DViewWidget' -e '0,76,1083,1428,729'
+
+echo 'Setting up MapViewWidget'
+wmctrl -r 'MapViewWidget' -e '0,990,13,930,1027'
+
+echo 'Setting up CameraViewerCustomWidget'
+wmctrl -r 'CameraViewerCustomWidget' -e '0,67,13,921,1029'
+
+echo 'Setting up vigir_rqt_system_command__SystemCommandPlugin - RosGui'
+wmctrl -r 'vigir_rqt_system_command__SystemCommandPlugin - RosGui' -e '0,1231,1821,262,299'
+
+echo 'Setting up vigir_rqt_position_mode__PositionModePlugin - RosGui'
+wmctrl -r 'vigir_rqt_position_mode__PositionModePlugin - RosGui' -e '0,1926,1579,375,541'
+
+echo 'Setting up vigir_rqt_position_mode__PositionModePlugin - RosGui'
+wmctrl -r 'vigir_rqt_position_mode__PositionModePlugin - RosGui' -e '0,1922,1082,418,475'
+
+echo 'Setting up ocs_default.rviz* - RViz'
+wmctrl -r 'ocs_default.rviz* - RViz' -e '0,3273,1421,1200,846'

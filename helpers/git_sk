@@ -1,0 +1,2 @@
+git config --global user.name "Stefan Kohlbrecher" 
+git config --global user.email "kohlbrecher@sim.tu-darmstadt.de" 

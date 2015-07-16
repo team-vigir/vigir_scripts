@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# This script is for removing packages that were part of a workspace,
+# but are not needed anymore. Manual removal is very cumbersome.
+
+
+rm_from_workspace vigir_local
+rm_from_workspace flor_smach_engine
+rm_from_workspace vigir_behaviors
+rm_from_workspace vigir_perception
+rm_from_workspace external/robot_self_filter
+rm_from_workspace flor_control
+rm_from_workspace flor_perception
+
+rm_from_workspace vigir_robot
+rm_from_workspace vigir_scenarios
+rm_from_workspace vigir_comms
+rm_from_workspace vigir_control
+rm_from_workspace vigir_launch
+rm_from_workspace flor_navigation
+rm_from_workspace vigir_state_estimation
+
+rm_from_workspace external/gaussian_process
+rm_from_workspace external/hector_interactive_marker_pose_server
+rm_from_workspace external/message_to_tf

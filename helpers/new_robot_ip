@@ -1,0 +1,6 @@
+#!/bin/bash
+
+
+echo "pass the eth port to set as 1st arg and hostname as second arg"
+
+sudo ifconfig $1 $2

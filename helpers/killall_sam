@@ -1,0 +1,25 @@
+#!/bin/bash
+
+if [ "$HOSTNAME" = sam ]; then
+
+    echo "Tried to kill hand_hardware"
+    screen -x  hand_hardware -X quit
+
+    echo "Tried to kill motion"
+    screen -x  motion     -X quit
+
+    if [ "$1" != "no_comms" ]; then
+        echo "Tried to kill comms_bridge"
+        screen -x  comms_bridge -X quit
+    else
+        echo "Did not kill comms_bridge"
+    fi
+
+    echo "Anyone still out there?"
+    screen -ls
+
+else
+
+    echo "Please run from sam"
+
+fi

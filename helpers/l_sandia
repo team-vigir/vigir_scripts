@@ -1,0 +1,5 @@
+#!/bin/bash
+
+export FLOR_LEFT_HAND_TYPE="l_sandia" 
+
+echo "  Left hand type = "$FLOR_LEFT_HAND_TYPE

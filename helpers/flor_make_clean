@@ -1,0 +1,3 @@
+#!/bin/bash
+
+flor_make --clean

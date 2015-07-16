@@ -1,0 +1,2 @@
+cd ~/Videos
+ffmpeg  -s 3840x2160 -f x11grab -r 30 -i :0.0+0,0 -vcodec libx264 -vpre lossless_ultrafast -threads 2 vrc_screencast.mkv
