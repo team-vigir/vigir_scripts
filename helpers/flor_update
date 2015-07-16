@@ -1,0 +1,94 @@
+#!/bin/bash
+
+#This could be extended to automatically create the standard directories if they are not yet existing
+
+if [ -f ~/.bashrc ]; then
+    echo "Source the .bashrc ..."
+    source ~/.bashrc
+fi
+
+#sudo echo "checking sudo">>/tmp/null || exit 1
+
+if [ -z "$VIGIR_ROOT_DIR" ]; then
+   if [ -z "$ROS_WORKSPACE" ]; then
+        echo
+        echo "-------------------------------------------------------------------------"
+        echo "-------------------------------------------------------------------------"
+        echo
+        echo " The VIGIR_ROOT_DIR (e.g. ~/vigir_repo ) is not set.  "
+        echo " This must be set for the scripts and build system to work correctly!"
+        echo
+        echo " Please correct in the .bashrc and re-start shell!"
+        echo
+        echo "-------------------------------------------------------------------------"
+        echo "-------------------------------------------------------------------------"
+        echo
+
+        exit 1
+   else
+
+        echo "Using the ROS_WORKSPACE variable to set the VIGIR_ROOT_DIR ... should confirm this!"
+        cd ${ROS_WORKSPACE}/..
+        export VIGIR_ROOT_DIR=${PWD}
+        if [ -d "$VIGIR_ROOT_DIR/catkin_ws" ]; then
+                echo "VIGIR_ROOT_DIR=${VIGIR_ROOT_DIR}"
+        else
+                cd .. # Maybe we had catkin_ws/devel instead
+                export VIGIR_ROOT_DIR=${PWD}
+                if [ -d "$VIGIR_ROOT_DIR/catkin_ws" ]; then
+                    echo "VIGIR_ROOT_DIR=${VIGIR_ROOT_DIR}"
+                else
+                    echo "Cannot find the proper root directory!"
+                    exit 1
+                fi
+        fi  
+            
+        if [ -f ~/.bashrc ]; then
+            echo "Adding VIGIR_ROOT_DIR and new catkin setup to .bashrc for future use!"
+            VIGIR_ROOT_LINE="export VIGIR_ROOT_DIR=${VIGIR_ROOT_DIR}"
+            WS_SETUP_LINE=". \"${VIGIR_ROOT_DIR}/catkin_ws/setup.bash\""
+            DEVEL_SETUP_LINE=". \"${VIGIR_ROOT_DIR}/catkin_ws/devel/setup.bash\""
+            VIGIR_SETUP_LINE=". \"${VIGIR_ROOT_DIR}/scripts/setup/setup.bash\""
+                
+            echo "$VIGIR_ROOT_LINE"
+            echo "$WS_SETUP_LINE"
+            echo "$DEVEL_SETUP_LINE"
+            echo "$VIGIR_SETUP_LINE"
+            echo "$VIGIR_ROOT_LINE"  >> ~/.bashrc
+            echo "$WS_SETUP_LINE"    >> ~/.bashrc
+            echo "$DEVEL_SETUP_LINE" >> ~/.bashrc
+            echo "$VIGIR_SETUP_LINE" >> ~/.bashrc
+        else
+            echo "Not adding environment setup to your ~/.bashrc, since it already contains lines that look like ros setup calls:"
+            echo $BASHRC_ROS_SETUP_LINES
+            echo "The correct lines would be:"
+            echo "$VIGIR_ROOT_LINE"
+            echo "$WS_SETUP_LINE"
+            echo "$DEVEL_SETUP_LINE"
+            echo "$VIGIR_SETUP_LINE"
+        fi
+   fi
+fi
+
+echo "VIGIR_ROOT_DIR="${VIGIR_ROOT_DIR}
+cd ${VIGIR_ROOT_DIR}
+
+cd rosinstall
+echo "Update the latest rosinstall files in "$PWD" ..."
+
+git pull
+
+cd ${VIGIR_ROOT_DIR}
+echo "-------------------------------"
+echo "-------------------------------"
+cd catkin_ws
+
+source setup.bash
+echo "Set up the Atlas specific files in the catkin workspace "$PWD" ..."
+
+rosws merge ../rosinstall/vigir_atlas_catkin.rosinstall
+
+echo "-------------------------------"
+
+echo "Call update for the common ViGIR software ..."
+vigir_update

@@ -1,0 +1,15 @@
+#!/bin/bash
+
+CLEAN=false
+if [ -z $1 ]
+  then
+    echo "Provide controller name and joint name as arguments, e.g."
+    echo "plot_traj_control_data left_arm 4"
+    exit 1
+fi
+
+rqt_plot topics /joint_controllers/$1_linear_traj_controller/state/desired/positions[$2] /robot_controllers/$1_linear_traj_controller/state/actual/positions[$2] &
+rqt_plot topics /joint_controllers/$1_linear_traj_controller/state/desired/velocities[$2] /robot_controllers/$1_linear_traj_controller/state/actual/velocities[$2] &
+rqt_plot topics /joint_controllers/$1_linear_traj_controller/state/desired/accelerations[$2]  &
+
+

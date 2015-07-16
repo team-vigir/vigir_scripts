@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# This is mainly to ask for sudo at the beginning and not mid-build
+#sudo echo "Make ViGIR common and Atlas specific software" || exit 1
+
+# Build all catkin-based software 
+# rosbuild_ws no longer exists, so there is no distinction between ViGIR common and Atlas specific in catkin_ws
+vigir_make $1
+
+message=$?
+echo $message
+#Case there is error
+if [ $message != 0 ] ; then echo "Error in executing vigir_make"; exit 1; fi
+
+echo "Done!"
+
+
