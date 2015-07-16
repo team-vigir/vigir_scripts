@@ -1,0 +1,3 @@
+#legolas
+#remotelaunch sleep=15
+roslaunch vigir_onboard_gazebo onboard_perception_gazebo.launch

@@ -1,0 +1,4 @@
+#legolas
+roslaunch flor_atlas_bringup camera_sensors.launch
+roslaunch vigir_onboard perception.launch
+roslaunch vigir_image_processing relay_crop_decimate_without_comms_bridge.launch

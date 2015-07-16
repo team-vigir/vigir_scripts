@@ -1,0 +1,20 @@
+#legolas
+roslaunch flor_atlas_bringup  common_parameters.launch
+roslaunch flor_atlas_bringup  state_publishers.launch
+#remotelaunch sleep=2.0
+roslaunch flor_atlas_bringup hand_hardware.launch
+#remotelaunch sleep=2.0
+# From vigir_onboard/launch/motion.launch
+roslaunch vigir_onboard grasp_controllers.launch
+roslaunch vigir_onboard moveit_planning.launch
+roslaunch vigir_atlas_footstep_planner atlas_footstep_planner.launch
+roslaunch vigir_atlas_footstep_planner atlas_terrain_classifier.launch
+roslaunch vigir_onboard_footstep_manager vigir_footstep_manager.launch
+rosrun flor_motion motion_service
+roslaunch vigir_atlas_controller multiplex_trajectory_controllers.launch
+vigir_pronto_start_deployed_robot_model_publisher.sh
+vigir_pronto_start_deployed_fusion.sh
+vigir_pronto_start_deployed_lcm2ros.sh
+vigir_pronto_start_deployed_ros2lcm.sh
+vigir_pronto_start_deployed_yaw_lock.sh
+roslaunch vigir_atlas_pose_proc atlas_relative_pose_proc.launch

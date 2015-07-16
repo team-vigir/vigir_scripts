@@ -1,0 +1,12 @@
+#boromir
+roslaunch flor_atlas_bringup  common_parameters.launch
+#remotelaunch sleep=2.0
+roslaunch flor_atlas_bringup multisense_bringup.launch
+#remotelaunch sleep=2.0
+roslaunch vigir_onboard perception.launch
+roslaunch vigir_wide_angle_image_proc sa_camera_nodelets.launch
+roslaunch flor_sa_correction_nodelet correction.launch
+#remotelaunch sleep=2.0
+roslaunch vigir_image_processing relay_multisense_crop_decimate_without_comms_bridge.launch
+roslaunch vigir_image_processing relay_sa_camera_crop_decimate_without_comms_bridge.launch
+roslaunch ms_dynparam ms_dynparam.launch

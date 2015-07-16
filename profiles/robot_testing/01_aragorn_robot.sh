@@ -1,0 +1,2 @@
+#aragorn
+roslaunch vigir_atlas_controller atlas_simulation.launch

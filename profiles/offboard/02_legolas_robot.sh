@@ -1,0 +1,22 @@
+#legolas
+#remotelaunch sleep=4.0
+roslaunch flor_atlas_bringup multisense_bringup.launch
+#roslaunch vigir_onboard perception.launch #(has inside the launch files below)
+roslaunch vigir_image_processing onboard_crop_decimate_nodelets.launch
+roslaunch vigir_worldmodel_server worldmodel_default.launch
+roslaunch vigir_state_estimation state_estimation.launch
+#remotelaunch sleep=2.0
+roslaunch vigir_lidar_processing lidar_processing.launch
+roslaunch vigir_image_processing relay_multisense_crop_decimate_without_comms_bridge.launch
+#remotelaunch sleep=2.0
+#roslaunch vigir_onboard motion.launch #(has inside the launch files below)
+roslaunch vigir_be_onboard behavior_onboard.launch
+roslaunch vigir_atlas_footstep_planner atlas_footstep_planner.launch
+roslaunch vigir_onboard moveit_planning.launch
+rosrun flor_motion motion_service
+# Now set the MS parameters
+roslaunch ms_dynparam ms_dynparam.launch
+roslaunch vigir_atlas_controller republish_legacy_trajectory_command_topics_to_new.launch
+roslaunch vigir_atlas_controller republish_legacy_trajectory_command_topics_to_impedance_controller.launch
+roslaunch vigir_onboard onboard_logging.launch
+

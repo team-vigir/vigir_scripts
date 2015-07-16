@@ -1,0 +1,5 @@
+#aragorn
+roslaunch vigir_atlas_controller atlas_simulation.launch
+roslaunch vigir_onboard motion.launch
+roslaunch vigir_onboard_gazebo onboard_perception_gazebo.launch
+roslaunch vigir_image_processing relay_multisense_crop_decimate_without_comms_bridge.launch

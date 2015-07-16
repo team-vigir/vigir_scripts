@@ -1,0 +1,28 @@
+#Gimli computer
+roscore
+##remotelaunch sleep=2.0
+roslaunch flor_atlas_bringup  common_parameters.launch
+roslaunch vigir_ocs common_parameter_setup.launch
+roslaunch vigir_onboard vigir_status_relay.launch
+roslaunch vigir_ocs vigir_ocs_nodelets_with_footstep_planner.launch
+roslaunch vigir_point_cloud_proc vigir_worldmodel.launch
+roslaunch vigir_ocs ocs_logging.launch
+roslaunch vigir_comms_bridge ocs_bridge.launch
+roslaunch vigir_atlas_comms_bridge slow_ocs.launch
+#
+# fast ocs launch files
+roslaunch vigir_comms_bridge fast_ocs.launch
+roslaunch vigir_comms_bridge fast_ocs_hands.launch
+roslaunch vigir_comms_bridge fast_ocs_laser.launch
+roslaunch vigir_comms_bridge fast_ocs_multisense_depth.launch
+roslaunch vigir_comms_bridge fast_ocs_multisense_left.launch
+#
+# laser converter from compressed to filtered scan data
+roslaunch vigir_comms_bridge bridge_laser_ocs.launch
+#
+#image rebuilder
+roslaunch vigir_comms_bridge_helpers multisense_depth_rebuilder.launch
+roslaunch vigir_comms_bridge_helpers multisense_left_rebuilder.launch
+roslaunch vigir_comms_bridge_helpers hands_rebuilder.launch
+#
+chrony_tracking.py gandalf

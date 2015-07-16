@@ -1,0 +1,9 @@
+#legolas
+#remotelaunch sleep=4.0
+roslaunch vigir_onboard onboard_logging.launch
+#roslaunch vigir_be_onboard behavior_onboard.launch
+#roslaunch vigir_atlas_footstep_planner atlas_footstep_planner.launch
+#roslaunch vigir_onboard moveit_planning.launch
+#rosrun flor_motion motion_service
+#roslaunch vigir_atlas_controller republish_legacy_trajectory_command_topics_to_new.launch
+#roslaunch vigir_atlas_controller republish_legacy_trajectory_command_topics_to_impedance_controller.launch

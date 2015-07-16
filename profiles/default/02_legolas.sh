@@ -1,0 +1,3 @@
+#aragorn
+roslaunch vigir_onboard_machines basic_controller_setup.launch
+roslaunch vigir_atlas_controller atlas_controller.launch

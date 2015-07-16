@@ -1,0 +1,2 @@
+#remotelaunch sleep=10
+roslaunch vigir_atlas_controller atlas_simulation.launch

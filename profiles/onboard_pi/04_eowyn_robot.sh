@@ -1,0 +1,14 @@
+#eowyn_robot
+roslaunch flor_atlas_bringup  common_parameters.launch
+roslaunch flor_atlas_bringup  state_publishers.launch
+#remotelaunch sleep=2.0
+roslaunch flor_atlas_bringup hand_hardware.launch
+#remotelaunch sleep=2.0
+# From vigir_onboard/launch/motion.launch
+roslaunch vigir_onboard grasp_controllers.launch
+#roslaunch vigir_image_processing palm_crop_decimate_nodelets.launch
+roslaunch vigir_onboard moveit_planning.launch
+roslaunch vigir_atlas_footstep_planner atlas_footstep_planner.launch
+rosrun flor_motion motion_service
+roslaunch vigir_atlas_controller republish_legacy_trajectory_command_topics_to_new.launch
+roslaunch vigir_atlas_controller republish_legacy_trajectory_command_topics_to_impedance_controller.launch
