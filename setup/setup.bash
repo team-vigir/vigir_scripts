@@ -113,7 +113,7 @@ else
 	export ROS_LANG_DISABLE=genlisp
 
 	#Setup non ROS paths
-	export PATH=${VIGIR_ROOT_DIR}/vigir_scripts/helper:${VIGIR_ROOT_DIR}/vigir_scripts/vigir_pronto:${VIGIR_ROOT_DIR}:$PATH
+	export PATH=${VIGIR_ROOT_DIR}/scripts/helper:${VIGIR_ROOT_DIR}/scripts/vigir_pronto:${VIGIR_ROOT_DIR}:$PATH
 
 	export ATLAS_SIMULATION_INTERFACE=${VIGIR_ROOT_DIR}/flor_atlas_robot_interface/AtlasSimInterface_3.0.2
         export ATLAS_ROBOT_INTERFACE=${VIGIR_ROOT_DIR}/flor_atlas_robot_interface/AtlasRobotInterface_3.3.0
