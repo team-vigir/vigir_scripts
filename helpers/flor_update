@@ -120,9 +120,9 @@ echo "-------------------------------"
 cd catkin_ws
 
 source setup.bash
-echo "Set up the Atlas specific files in the catkin workspace "$PWD" ..."
+#echo "Set up the Atlas specific files in the catkin workspace "$PWD" ..."
 
-rosws merge ../rosinstall/vigir_atlas_catkin.rosinstall
+#rosws merge ../rosinstall/vigir_atlas_catkin.rosinstall
 
 echo "-------------------------------"
 
