@@ -199,7 +199,7 @@ rm_unused_catkin_packages
 rosdep update
 rosdep install --from-paths src --ignore-src --rosdistro hydro -y
 
-rosws merge ../rosinstall/vigir_default_catkin.rosinstall
+rosws merge ../rosinstall/vigir_rosinstall.rosinstall
 rosws update
 rosws regenerate
 echo "-------------------------------"
