@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package>
+  <name>thor_mang_scripts</name>
+  <version>0.0.0</version>
+  <description>The thor_mang_scripts package</description>
+
+  <maintainer email="kohlbrecher@sim.tu-darmstadt.de">Stefan Kohlbrecher</maintainer>
+
+  <license>GPLv3</license>
+
+  <author email="stumpf@sim.tu-darmstadt.de">Alexander Stumpf</author>
+  <author email="kohlbrecher@sim.tu-darmstadt.de">Stefan Kohlbrecher</author>
+  <author email="meyer@fsr.tu-darmstadt.de">Johannes Meyer</author>  
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+</package>
