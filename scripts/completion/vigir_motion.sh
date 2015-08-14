@@ -1,11 +1,11 @@
 #!/bin/bash
 
-function thor_motion() {
+function vigir_motion() {
     command=$1
     shift
 
     if [[ "$command" == "--help" || -z "$command" ]]; then
-        _thor_motion_help
+        _vigir_motion_help
         return 0
     fi
 
@@ -24,7 +24,7 @@ function thor_motion() {
         if [ $command == "roscore" ]; then
             thor screen start "roscore" "roscore $@"
         elif [ $command == "start" ]; then
-            thor screen start "motion" "roslaunch thor_mang_onboard_launch motion.launch $@"
+            thor screen start "motion" "roslaunch vigir_mang_onboard_launch motion.launch $@"
         elif [ $command == "stop" ]; then
             thor screen stop "motion" "$@"
         elif [ $command == "show" ]; then
@@ -39,10 +39,10 @@ function thor_motion() {
     return 0
 }
 
-function _thor_motion_commands() {
+function _vigir_motion_commands() {
     local WORKSPACE_COMMANDS=("roscore" "start" "stop" "show")
 
-    commands=$(_thor_commands)
+    commands=$(_vigir_commands)
     for i in ${commands[@]}; do
         if [ $i == "motion" ]; then
             continue
@@ -53,10 +53,10 @@ function _thor_motion_commands() {
     echo ${WORKSPACE_COMMANDS[@]}
 }
 
-function _thor_motion_help() {
+function _vigir_motion_help() {
     echo "The following commands are available:"
 
-    commands=$(_thor_motion_commands)
+    commands=$(_vigir_motion_commands)
     for i in ${commands[@]}; do       
         if [ $i == "roscore" ]; then
             echo "   $i"
@@ -77,7 +77,7 @@ function _thor_motion_help() {
     echo "(*) Commands marked with * may change your environment."
 }
 
-function _thor_motion_complete() {
+function _vigir_motion_complete() {
     local cur
     local prev
 
@@ -91,7 +91,7 @@ function _thor_motion_complete() {
     if [[ "$cur" == -* ]]; then
         COMPREPLY=( $( compgen -W "--help" -- "$cur" ) )
     else
-        COMPREPLY=( $( compgen -W "$(_thor_motion_commands)" -- "$cur" ) )
+        COMPREPLY=( $( compgen -W "$(_vigir_motion_commands)" -- "$cur" ) )
     fi
 } &&
-complete -F _thor_motion_complete thor_motion
+complete -F _vigir_motion_complete vigir_motion

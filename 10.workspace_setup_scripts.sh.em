@@ -5,7 +5,7 @@ export WORKSPACE_SCRIPTS=@(PROJECT_SOURCE_DIR)/scripts
 @[else]@
 export WORKSPACE_SCRIPTS=@(CMAKE_INSTALL_PREFIX)/@(CATKIN_PACKAGE_SHARE_DESTINATION)/scripts
 @[end if]@
-export WORKSPACE_ROOT=$(cd "@(CMAKE_SOURCE_DIR)/.."; pwd)
+export WORKSPACE_ROOT=$(cd "@(CMAKE_SOURCE_DIR)/../.."; pwd)
 
 # set THOR_* environment variables
 #alias l_vt_hand='. l_vt_hand'

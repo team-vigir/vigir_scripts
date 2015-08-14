@@ -1,11 +1,11 @@
 #!/bin/bash
 
-function thor_install() {
+function vigir_install() {
     rosinstall=$1
     shift
 
     if [[ "$rosinstall" = "--help" || -z "$rosinstall" ]]; then
-        _thor_install_help
+        _vigir_install_help
         return 0
     fi
 
@@ -17,13 +17,13 @@ function thor_install() {
         return 0
     else
         echo "Unknown rosinstall file: $rosinstall"
-        _thor_install_help 
+        _vigir_install_help 
     fi
 
     return 1
 }
 
-function _thor_install_files() {
+function _vigir_install_files() {
     local WORKSPACE_ROSINSTALL_FILES=()
  
     for i in `find $WORKSPACE_ROOT/rosinstall/optional/ -type f -name "*.rosinstall"`; do
@@ -37,15 +37,15 @@ function _thor_install_files() {
     echo ${WORKSPACE_ROSINSTALL_FILES[@]}
 }
 
-function _thor_install_help() {
+function _vigir_install_help() {
     echo "The following rosinstall files are available:"
-    files=$(_thor_install_files)
+    files=$(_vigir_install_files)
     for i in ${files[@]}; do
         echo "   $i"
     done
 }
 
-function _thor_install_complete() {
+function _vigir_install_complete() {
     local cur
 
     if ! type _get_comp_words_by_ref >/dev/null 2>&1; then
@@ -58,9 +58,9 @@ function _thor_install_complete() {
     if [[ "$cur" == -* ]]; then
         COMPREPLY=( $( compgen -W "--help" -- "$cur" ) )
     else
-        COMPREPLY=( $( compgen -W "$(_thor_install_files)" -- "$cur" ) )
+        COMPREPLY=( $( compgen -W "$(_vigir_install_files)" -- "$cur" ) )
     fi
 
     return 0
 } &&
-complete -F _thor_install_complete thor_install
+complete -F _vigir_install_complete vigir_install

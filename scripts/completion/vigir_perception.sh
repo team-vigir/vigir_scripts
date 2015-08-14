@@ -1,32 +1,33 @@
 #!/bin/bash
 
-function thor_field() {
+function vigir_perception() {
     command=$1
     shift
 
     if [[ "$command" == "--help" || -z "$command" ]]; then
-        _thor_field_help
+        _vigir_perception_help
         return 0
     fi
 
-    # check if first a ssh connection to thor-field is required/requested
+    # check if first a ssh connection to thor-perception is required/requested
     if [ $command = 'ssh' ]; then
-        if [ $(hostname) = $WORKSPACE_FIELD_HOSTNAME ]; then
-            echo "You are already on $WORKSPACE_FIELD_HOSTNAME!"
+        if [ $(hostname) = $WORKSPACE_PERCEPTION_HOSTNAME ]; then
+            echo "You are already on $WORKSPACE_PERCEPTION_HOSTNAME!"
         else
-            thor ssh $WORKSPACE_FIELD_HOSTNAME
+            thor ssh $WORKSPACE_PERCEPTION_HOSTNAME
         fi
-    elif [ ! $(hostname) = $WORKSPACE_FIELD_HOSTNAME ]; then
-        thor ssh $WORKSPACE_FIELD_HOSTNAME "thor field $command $@"
+    elif [ ! $(hostname) = $WORKSPACE_PERCEPTION_HOSTNAME ]; then
+        thor ssh $WORKSPACE_PERCEPTION_HOSTNAME "thor perception $command $@"
 
-    # we are on thor-field
+    # we are on thor-perception
     else
         if [ $command == "start" ]; then
-            thor screen start "field" "roslaunch thor_mang_field_launch field.launch $@"
+            thor master "thor-motion"
+            thor screen start "perception" "roslaunch vigir_mang_onboard_launch perception.launch $@"
         elif [ $command == "stop" ]; then
-            thor screen stop "field" "$@"
+            thor screen stop "perception" "$@"
         elif [ $command == "show" ]; then
-            thor screen show "field" "$@"
+            thor screen show "perception" "$@"
         elif [ -x "$WORKSPACE_SCRIPTS/${command}.sh" ]; then
             thor $command "$@"
         else
@@ -37,12 +38,12 @@ function thor_field() {
     return 0
 }
 
-function _thor_field_commands() {
+function _vigir_perception_commands() {
     local WORKSPACE_COMMANDS=("start" "stop" "show")
 
-    commands=$(_thor_commands)
+    commands=$(_vigir_commands)
     for i in ${commands[@]}; do
-        if [ $i == "field" ]; then
+        if [ $i == "perception" ]; then
             continue
         fi
         WORKSPACE_COMMANDS+=($i)
@@ -51,10 +52,10 @@ function _thor_field_commands() {
     echo ${WORKSPACE_COMMANDS[@]}
 }
 
-function _thor_field_help() {
+function _vigir_perception_help() {
     echo "The following commands are available:"
 
-    commands=$(_thor_field_commands)
+    commands=$(_vigir_perception_commands)
     for i in ${commands[@]}; do       
         if [ $i == "start" ]; then
             echo "   $i"
@@ -73,7 +74,7 @@ function _thor_field_help() {
     echo "(*) Commands marked with * may change your environment."
 }
 
-function _thor_field_complete() {
+function _vigir_perception_complete() {
     local cur
     local prev
 
@@ -87,7 +88,7 @@ function _thor_field_complete() {
     if [[ "$cur" == -* ]]; then
         COMPREPLY=( $( compgen -W "--help" -- "$cur" ) )
     else
-        COMPREPLY=( $( compgen -W "$(_thor_field_commands)" -- "$cur" ) )
+        COMPREPLY=( $( compgen -W "$(_vigir_perception_commands)" -- "$cur" ) )
     fi
 } &&
-complete -F _thor_field_complete thor_field
+complete -F _vigir_perception_complete vigir_perception

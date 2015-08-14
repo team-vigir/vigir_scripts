@@ -1,3 +1,3 @@
 #!/bin/bash
 
-thor_install "$@"
+vigir_install "$@"

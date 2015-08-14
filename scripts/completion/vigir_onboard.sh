@@ -1,11 +1,11 @@
 #!/bin/bash
 
-function thor_onboard() {
+function vigir_onboard() {
     command=$1
     shift
 
     if [[ "$command" == "--help" || -z "$command" ]]; then
-        _thor_onboard_help
+        _vigir_onboard_help
         return 0
     fi
 
@@ -22,7 +22,7 @@ function thor_onboard() {
     # we are on thor-onboard
     else
         if [ $command == "start" ]; then
-            thor screen start "onboard" "roslaunch thor_mang_onboard_launch onboard_all.launch $@"
+            thor screen start "onboard" "roslaunch vigir_mang_onboard_launch onboard_all.launch $@"
         elif [ $command == "stop" ]; then
             thor screen stop "onboard" "$@"
         elif [ $command == "show" ]; then
@@ -37,10 +37,10 @@ function thor_onboard() {
     return 0
 }
 
-function _thor_onboard_commands() {
+function _vigir_onboard_commands() {
     local WORKSPACE_COMMANDS=("start" "stop" "show")
 
-    commands=$(_thor_commands)
+    commands=$(_vigir_commands)
     for i in ${commands[@]}; do
         if [ $i == "onboard" ]; then
             continue
@@ -51,10 +51,10 @@ function _thor_onboard_commands() {
     echo ${WORKSPACE_COMMANDS[@]}
 }
 
-function _thor_onboard_help() {
+function _vigir_onboard_help() {
     echo "The following commands are available:"
 
-    commands=$(_thor_onboard_commands)
+    commands=$(_vigir_onboard_commands)
     for i in ${commands[@]}; do       
         if [ $i == "start" ]; then
             echo "   $i"
@@ -73,7 +73,7 @@ function _thor_onboard_help() {
     echo "(*) Commands marked with * may change your environment."
 }
 
-function _thor_onboard_complete() {
+function _vigir_onboard_complete() {
     local cur
     local prev
 
@@ -87,7 +87,7 @@ function _thor_onboard_complete() {
     if [[ "$cur" == -* ]]; then
         COMPREPLY=( $( compgen -W "--help" -- "$cur" ) )
     else
-        COMPREPLY=( $( compgen -W "$(_thor_onboard_commands)" -- "$cur" ) )
+        COMPREPLY=( $( compgen -W "$(_vigir_onboard_commands)" -- "$cur" ) )
     fi
 } &&
-complete -F _thor_onboard_complete thor_onboard
+complete -F _vigir_onboard_complete vigir_onboard
