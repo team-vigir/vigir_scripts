@@ -1,11 +1,11 @@
 #!/bin/bash
 
-function thor() {
+function vigir() {
     command=$1
     shift
 
     if [[ "$command" = "--help" || -z "$command" ]]; then
-        _thor_help
+        _vigir_help
         return 0
     fi
 
@@ -16,14 +16,14 @@ function thor() {
         source $WORKSPACE_SCRIPTS/${command}.sh "$@"
         return
     else
-        echo "Unknown thor command: $command"
-        _thor_help 
+        echo "Unknown vigir command: $command"
+        _vigir_help 
     fi
 
     return 1
 }
 
-function _thor_commands() {
+function _vigir_commands() {
     local WORKSPACE_COMMANDS=()
 
     for i in `find $WORKSPACE_SCRIPTS/ -type f -name "*.sh"`; do
@@ -39,10 +39,10 @@ function _thor_commands() {
     echo ${WORKSPACE_COMMANDS[@]}
 }
 
-function _thor_help() {
+function _vigir_help() {
     echo "The following commands are available:"
 
-    commands=$(_thor_commands)
+    commands=$(_vigir_commands)
     for i in ${commands[@]}; do
         if [ -x "$WORKSPACE_SCRIPTS/$i.sh" ]; then
             echo "   $i"
@@ -55,7 +55,7 @@ function _thor_help() {
     echo "(*) Commands marked with * may change your environment."
 }
 
-function _thor_complete() {
+function _vigir_complete() {
     local cur
     local prev
 
@@ -66,30 +66,30 @@ function _thor_complete() {
     COMPREPLY=()
     _get_comp_words_by_ref cur prev
 
-    # thor <command>
+    # vigir <command>
     if [ $COMP_CWORD -eq 1 ]; then
         if [[ "$cur" == -* ]]; then
             COMPREPLY=( $( compgen -W '--help' -- "$cur" ) )
         else
-            COMPREPLY=( $( compgen -W "$(_thor_commands)" -- "$cur" ) )
+            COMPREPLY=( $( compgen -W "$(_vigir_commands)" -- "$cur" ) )
         fi
     fi
 
-    # thor command <subcommand..>
+    # vigir command <subcommand..>
     if [ $COMP_CWORD -ge 2 ]; then
         case ${prev} in
             install)
                 #COMP_CWORD=$((COMP_CWORD+1))                
-                COMP_WORDS=( thor install $cur )
+                COMP_WORDS=( vigir install $cur )
                 COMP_CWORD=2
-                _thor_install_complete
+                _vigir_install_complete
                 ;;
 
             uninstall)
                 #COMP_CWORD=$((COMP_CWORD+1))                
-                COMP_WORDS=( thor uninstall $cur )
+                COMP_WORDS=( vigir uninstall $cur )
                 COMP_CWORD=2
-                _thor_uninstall_complete
+                _vigir_uninstall_complete
                 ;;
 
             launch)
@@ -97,7 +97,7 @@ function _thor_complete() {
                     COMPREPLY=( $( compgen -W "--screen" -- "$cur" ) )
                 fi
 
-                COMP_WORDS=( roslaunch thor_mang_onboard_launch $cur )
+                COMP_WORDS=( roslaunch vigir_mang_onboard_launch $cur )
                 COMP_CWORD=2
                 _roscomplete_launch
                 ;;
@@ -114,30 +114,30 @@ function _thor_complete() {
 
             motion)
                 #COMP_CWORD=$((COMP_CWORD+1))          
-                COMP_WORDS=( thor motion $cur )
+                COMP_WORDS=( vigir motion $cur )
                 COMP_CWORD=2
-                _thor_motion_complete
+                _vigir_motion_complete
                 ;;
 
             perception)
                 #COMP_CWORD=$((COMP_CWORD+1))          
-                COMP_WORDS=( thor perception $cur )
+                COMP_WORDS=( vigir perception $cur )
                 COMP_CWORD=2
-                _thor_perception_complete
+                _vigir_perception_complete
                 ;;
                 
             onboard)
                 #COMP_CWORD=$((COMP_CWORD+1))          
-                COMP_WORDS=( thor onboard $cur )
+                COMP_WORDS=( vigir onboard $cur )
                 COMP_CWORD=2
-                _thor_onboard_complete
+                _vigir_onboard_complete
                 ;;
                 
             field)
                 #COMP_CWORD=$((COMP_CWORD+1))          
-                COMP_WORDS=( thor field $cur )
+                COMP_WORDS=( vigir field $cur )
                 COMP_CWORD=2
-                _thor_field_complete
+                _vigir_field_complete
                 ;;
 
             screen)
@@ -150,4 +150,4 @@ function _thor_complete() {
         esac
     fi
 } &&
-complete -F _thor_complete thor
+complete -F _vigir_complete vigir

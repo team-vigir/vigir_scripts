@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(thor_mang_scripts)
+project(vigir_scripts)
 
 find_package(catkin REQUIRED)
 
