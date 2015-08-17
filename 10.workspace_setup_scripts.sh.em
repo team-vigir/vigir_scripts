@@ -46,6 +46,22 @@ export ROS_WORKSPACE=$WORKSPACE_ROOT/src
 export LEFT_HAND_TYPE="l_vt_hand"
 export RIGHT_HAND_TYPE="r_vt_hand"
 
+
+# Load gazebo setup if gazebo is installed
+if [ -f /usr/share/gazebo/setup.sh ]; then
+  . /usr/share/gazebo/setup.sh 
+fi
+
+# Load drcsim setup if drcsim is installed
+if [ -f "/usr/share/drcsim/setup.sh" ]; then
+
+  # If below variable is not set, drcsim setup will overwrite the ROS workspace
+  # setup completely. This is also the reason why Gazebo setup is performed separately
+  # above (below variable switches off gazebo setup in drcim setup script, too).
+  export DRCSIM_SKIP_ROS_GAZEBO_SETUP=true
+  source /usr/share/drcsim/setup.sh
+fi
+
 # adding ssh keys
 if [ -d "$WORKSPACE_ROOT/.ssh/" ] && [ "$(ls -A $WORKSPACE_ROOT/.ssh/)" ]; then
     #echo "Adding ssh keys from '$WORKSPACE_ROOT/.ssh/':"
