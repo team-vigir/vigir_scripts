@@ -66,6 +66,10 @@ fi
 if [ -d "$WORKSPACE_ROOT/bdi_interface/AtlasSimInterface_3.0.2" ];then
   export ATLAS_SIMULATION_INTERFACE=${WORKSPACE_ROOT}/bdi_interface/AtlasSimInterface_3.0.2
   #export ROS_BOOST_LIB_DIR_NAME=/usr/lib/x86_64-linux-gnu
+  
+  # Required by BDI AtlasInterface. Should check for adverse effects on onboard computers
+  ulimit -s unlimited
+  ulimit -c unlimited
 fi
 
 if [ -d "$WORKSPACE_ROOT/bdi_interface/AtlasRobotInterface_3.3.0" ];then
