@@ -1,4 +1,0 @@
-#!/bin/bash
-
-echo "roslaunch vigir_atlas_gazebo_launch atlas.launch"
-roslaunch vigir_atlas_gazebo_launch atlas.launch
