@@ -43,8 +43,12 @@ export ROS_WORKSPACE=$WORKSPACE_ROOT/src
 #export ROBOT_HOSTNAMES="thor-motion thor-perception thor-onboard thor-field"
 #export ROBOT_USER="thor"
 #export THOR_ROBOT_TYPE="thor_mang_hands"
-export LEFT_HAND_TYPE="l_vt_hand"
-export RIGHT_HAND_TYPE="r_vt_hand"
+#export FLOR_LEFT_HAND_TYPE="l_robotiq"
+#export FLOR_RIGHT_HAND_TYPE="r_robotiq"
+export VIGIR_ATLAS_LEFT_HAND_TYPE="l_robotiq"
+export VIGIR_ATLAS_RIGHT_HAND_TYPE="r_robotiq"
+
+#export VIGIR_SIM_TYPE="ihmc_gazebo"
 
 
 # Load gazebo setup if gazebo is installed
