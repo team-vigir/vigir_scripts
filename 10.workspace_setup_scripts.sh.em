@@ -80,11 +80,3 @@ if [ -d "$WORKSPACE_ROOT/bdi_interface/AtlasRobotInterface_3.3.0" ];then
   export ATLAS_ROBOT_INTERFACE=${WORKSPACE_ROOT}/bdi_interface/AtlasRobotInterface_3.3.0
   export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$ATLAS_ROBOT_INTERFACE/lib64
 fi
-
-# adding ssh keys
-if [ -d "$WORKSPACE_ROOT/.ssh/" ] && [ "$(ls -A $WORKSPACE_ROOT/.ssh/)" ]; then
-    #echo "Adding ssh keys from '$WORKSPACE_ROOT/.ssh/':"
-    for f in $WORKSPACE_ROOT/.ssh/*; do
-        ssh-add $f
-    done
-fi
