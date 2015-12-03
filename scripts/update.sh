@@ -41,7 +41,7 @@ for file in $WORKSPACE_ROOT/rosinstall/*.rosinstall; do
     if [ -n "$WORKSPACE_MANG_NO_SIM" ] && [ $filename == "thor_mang_simulation" ]; then
         continue;
     else
-        echo "Merging to workspace: '$filename'.rosinstall"
+        echo "Merging to workspace: $filename.rosinstall"
         wstool merge $file -y
     fi
 done
